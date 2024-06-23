@@ -1,13 +1,11 @@
 import Card from './Card'
 import CategoryGroup from './CategoryGroup'
-import LatestPostsGroup from './LatestPostsGroup'
 import TagGroups from './TagGroups'
 import Catalog from './Catalog'
 import { InfoCard } from './InfoCard'
 import { AnalyticsCard } from './AnalyticsCard'
 import CONFIG from '../config'
 import dynamic from 'next/dynamic'
-import Announcement from './Announcement'
 import { useGlobal } from '@/lib/global'
 import Live2D from '@/components/Live2D'
 import { siteConfig } from '@/lib/config'
@@ -33,7 +31,7 @@ const FaceBookPage = dynamic(
  */
 export default function SideRight(props) {
   const {
-    post, currentCategory, categories, latestPosts, tags,
+    post, currentCategory, categories, tags,
     currentTag, showCategory, showTag, rightAreaSlot, notice, className
   } = props
 
@@ -65,10 +63,6 @@ export default function SideRight(props) {
           <TagGroups tags={tags} currentTag={currentTag} />
         </Card>
       )}
-       />
-      </Card>}
-
-      <Announcement post={notice}/>
 
       {siteConfig('COMMENT_WALINE_SERVER_URL') && siteConfig('COMMENT_WALINE_RECENT') && <HexoRecentComments/>}
 
@@ -76,6 +70,8 @@ export default function SideRight(props) {
         {post && post.toc && post.toc.length > 1 && <Card>
           <Catalog toc={post.toc} />
         </Card>}
+
+        <Announcement post={notice}/>
 
         {rightAreaSlot}
         <FaceBookPage/>
