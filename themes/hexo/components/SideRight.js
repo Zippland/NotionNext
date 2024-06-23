@@ -1,6 +1,5 @@
 import Card from './Card'
 import CategoryGroup from './CategoryGroup'
-import LatestPostsGroup from './LatestPostsGroup'
 import TagGroups from './TagGroups'
 import Catalog from './Catalog'
 import { InfoCard } from './InfoCard'
@@ -33,7 +32,7 @@ const FaceBookPage = dynamic(
  */
 export default function SideRight(props) {
   const {
-    post, currentCategory, categories, latestPosts, tags,
+    post, currentCategory, categories, tags,
     currentTag, showCategory, showTag, rightAreaSlot, notice, className
   } = props
 
@@ -65,9 +64,6 @@ export default function SideRight(props) {
           <TagGroups tags={tags} currentTag={currentTag} />
         </Card>
       )}
-       {siteConfig('HEXO_WIDGET_LATEST_POSTS', null, CONFIG) && latestPosts && latestPosts.length > 0 && <Card>
-        <LatestPostsGroup {...props} />
-      </Card>}
 
       <Announcement post={notice}/>
 
