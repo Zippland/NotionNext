@@ -14,6 +14,10 @@ import { NotionRenderer } from 'react-notion-x'
  * @returns
  */
 const NotionPage = ({ post, className }) => {
+  // 检查是否有有效的 blockMap 数据
+  const hasValidBlockMap =
+    post?.blockMap?.block && Object.keys(post.blockMap.block).length > 0
+
   // 是否关闭数据库和画册的点击跳转
   const POST_DISABLE_GALLERY_CLICK = siteConfig('POST_DISABLE_GALLERY_CLICK')
   const POST_DISABLE_DATABASE_CLICK = siteConfig('POST_DISABLE_DATABASE_CLICK')
@@ -115,6 +119,18 @@ const NotionPage = ({ post, className }) => {
     // 清理定时器，防止组件卸载时执行
     return () => clearTimeout(timer)
   }, [post])
+
+  if (!hasValidBlockMap) {
+    return (
+      <div
+        id='notion-article'
+        className={`mx-auto overflow-hidden ${className || ''}`}>
+        <div className='text-center py-8 text-gray-500'>
+          {post?.summary || '无法加载页面内容'}
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div
