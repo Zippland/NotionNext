@@ -1,5 +1,5 @@
 import { siteConfig } from '@/lib/config'
-import { compressImage, mapImgUrl } from '@/lib/notion/mapImage'
+import { compressImage, mapImgUrl } from '@/lib/db/notion/mapImage'
 import { isBrowser, loadExternalResource } from '@/lib/utils'
 import mediumZoom from '@fisch0920/medium-zoom'
 import 'katex/dist/katex.min.css'
@@ -120,17 +120,8 @@ const NotionPage = ({ post, className }) => {
     return () => clearTimeout(timer)
   }, [post])
 
-  if (!hasValidBlockMap) {
-    return (
-      <div
-        id='notion-article'
-        className={`mx-auto overflow-hidden ${className || ''}`}>
-        <div className='text-center py-8 text-gray-500'>
-          {post?.summary || '无法加载页面内容'}
-        </div>
-      </div>
-    )
-  }
+  // const cleanBlockMap = cleanBlocksWithWarn(post?.blockMap);
+  // console.log('NotionPage render with post:', post);
 
   return (
     <div
@@ -155,6 +146,7 @@ const NotionPage = ({ post, className }) => {
     </div>
   )
 }
+
 
 /**
  * 页面的数据库链接禁止跳转，只能查看
